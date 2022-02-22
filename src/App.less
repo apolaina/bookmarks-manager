@@ -1,0 +1,111 @@
+@import '~antd/dist/antd.less';
+
+#root {
+  display: flex;
+  flex: 1;
+}
+
+.app-layout {
+  //display: flex;
+  text-align: center;
+  background: linear-gradient(268deg, #114357, #f29492);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+.app-layout header, .app-layout main {
+  background: transparent;
+  font-weight: bold;
+  padding: 5rem;
+}
+
+.app-layout footer {
+  background: white;
+  box-shadow: inset 0 11px 8px -10px #CCC;
+}
+
+.app-layout header {
+  color: white;
+  font-size: calc(10px + 2rem);
+}
+
+.app-layout main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.app-layout main > div:first-child {
+  display: flex;
+  //flex: 1 1;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+
+.app-layout main div .input {
+  margin-right: 2rem;
+}
+
+.card-container {
+  display: grid;
+  grid-gap: .75rem 1rem;
+  grid-template-columns: repeat(3, minmax(90px, 1fr));
+  justify-items: center;
+  padding-top: 5rem;
+}
+
+.card {
+  border-radius: 40px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  word-break: break-word;
+  font-weight: normal;
+  box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0 6px 12px -2px, rgba(0, 0, 0, 0.3) 0 3px 7px -3px;
+}
+
+.card img, .card .ant-skeleton-image {
+  width: 100%;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  background: white;
+  max-height: 163px;
+}
+
+.card .ant-skeleton-image {
+  min-height: 163px;
+}
+
+.card .card-content {
+  padding: 1.5rem 1.5rem .5rem;
+  min-height: 200px;
+  box-shadow: inset 0 11px 8px -10px #CCC;
+}
+
+.card-content-title {
+  padding-bottom: .5rem;
+  color: #ECA72C;
+  font-weight: bold;
+}
+
+.card .card-footer {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.error {
+  color: white;
+  font-style: italic;
+  font-weight: lighter;
+  padding-top: .5rem;
+  text-decoration: underline;
+  text-decoration-color: #ECA72C;
+}
+
