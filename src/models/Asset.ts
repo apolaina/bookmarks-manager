@@ -10,5 +10,5 @@ export interface Asset {
   duration?: number;
   height?: number;
   width?: number;
-  uploadDate?: Date;
+  uploadDate?: Date | null;
 }

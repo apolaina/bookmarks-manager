@@ -6,7 +6,7 @@ const DATE_WITH_MONTH_THRESHOLD_IN_DAYS: number = 3;
 /**
  * Display "minutes ago" past this number of seconds , else "now"
  */
-const NOW_THRESHOLD_IN_SECONDS: number = 60;
+const NOW_THRESHOLD_IN_SECONDS: number = 30;
 
 /**
  * Display "hours ago" past this number of minutes
@@ -53,35 +53,39 @@ export function timeDiff(a: Date, b: Date) {
   };
 }
 
+export function formatDateToLocale(date: Date) {
+  return date.toLocaleDateString('en-CA', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
 export function formatDate(a: Date, b: Date = new Date()) {
   const { days, hours, minutes, seconds } = timeDiff(a, b);
 
-  if (seconds < NOW_THRESHOLD_IN_SECONDS) {
-    return 'now';
-  }
+  console.log({ days, hours, minutes, seconds });
 
-  if (
-    minutes < TODAY_AT_THRESHOLD_IN_MINUTES ||
-    seconds > NOW_THRESHOLD_IN_SECONDS
+  if (days > DATE_WITH_MONTH_THRESHOLD_IN_DAYS) {
+    return formatDateToLocale(a);
+  } else if (days > 0 && days <= DATE_WITH_MONTH_THRESHOLD_IN_DAYS) {
+    return `${days} ${days > 1 ? 'days' : 'day'} ago`;
+  } else if (seconds < NOW_THRESHOLD_IN_SECONDS && minutes <= 0) {
+    return 'now';
+  } else if (
+    (seconds >= NOW_THRESHOLD_IN_SECONDS &&
+      // minutes > 0 &&
+      minutes < TODAY_AT_THRESHOLD_IN_MINUTES &&
+      hours === 0) ||
+    hours === 0
   ) {
     return `${minutes} ${minutes > 1 ? 'minutes' : 'minute'} ago`;
-  }
-
-  if (hours > TODAY_AT_THRESHOLD_IN_HOURS) {
+  } else if (hours >= TODAY_AT_THRESHOLD_IN_HOURS) {
     return `today`;
-  }
-
-  if (hours < TODAY_AT_THRESHOLD_IN_HOURS) {
+  } else if (hours < TODAY_AT_THRESHOLD_IN_HOURS) {
     return `${hours} ${hours > 1 ? 'hours' : 'hour'} ago`;
   }
 
-  if (days < DATE_WITH_MONTH_THRESHOLD_IN_DAYS) {
-    return `${days} ${days > 1 ? 'days' : 'day'} ago`;
-  }
-
-  if (days > DATE_WITH_MONTH_THRESHOLD_IN_DAYS) {
-    return a.toDateString();
-  }
-
-  return a.toDateString();
+  return formatDateToLocale(a);
 }
